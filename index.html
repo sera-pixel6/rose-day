@@ -25,7 +25,7 @@
             transition: opacity 0.8s ease;
         }
 
-        /* Page 1 Background */
+        /* Page 1: Uses your roses.png */
         #landing-page {
             background-image: url('roses.png');
             background-size: cover;
@@ -33,20 +33,19 @@
             display: flex;
         }
 
-        /* Page 2 Styling */
+        /* Page 2: Plain background for the video */
         #surprise-page {
             display: none;
             opacity: 0;
-            background: #fff0f3; /* Matching pink or you can use roses.png here too */
+            background: #fff0f3; 
         }
 
+        /* Plain Text Styling */
         h1 {
             color: #ff4d6d;
             font-size: 2.5rem;
             margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.7); /* Adds readability over background */
-            padding: 10px 20px;
-            border-radius: 15px;
+            font-weight: bold;
         }
 
         button {
@@ -57,22 +56,32 @@
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
         }
 
-        /* Video Container */
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Video Styling */
         .video-wrapper {
             width: 90%;
-            max-width: 600px;
-            border-radius: 20px;
+            max-width: 500px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             margin-bottom: 20px;
         }
 
         video {
             width: 100%;
             display: block;
+        }
+
+        p {
+            color: #c9184a;
+            font-size: 1.2rem;
+            margin: 0;
         }
     </style>
 </head>
@@ -91,7 +100,7 @@
             </video>
         </div>
         <h1>Happy Rose Day!</h1>
-        <p style="color: #c9184a; font-size: 1.2rem;">You make every day beautiful.</p>
+        <p>You make every day beautiful.</p>
     </div>
 
     <script>
@@ -108,8 +117,9 @@
                 
                 setTimeout(() => {
                     surprise.style.opacity = '1';
-                    // Optional: Try to play video automatically
-                    video.play();
+                    video.play().catch(error => {
+                        console.log("Autoplay prevented, user must click play.");
+                    });
                 }, 100);
             }, 800);
         }
