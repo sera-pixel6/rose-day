@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose Day Surprise</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Background Styling */
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #fff0f3; /* Light pink background */
+            background-image: radial-gradient(#ffccd5 1px, transparent 1px);
+            background-size: 20px 20px;
+            transition: all 0.8s ease;
+        }
+
+        /* Screen 1: Landing */
+        #landing-page {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Screen 2: Surprise (Hidden by default) */
+        #surprise-page {
+            display: none;
+            opacity: 0;
+        }
+
+        h1 {
+            color: #ff4d6d;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px #ffffff;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background-color: #ff758f;
+        }
+
+        /* Rose Box Animation */
+        .box-container {
+            position: relative;
+            font-size: 80px;
+            cursor: pointer;
+        }
+
+        .roses {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            animation: popOut 1s forwards ease-out;
+        }
+
+        @keyframes popOut {
+            0% { transform: translateX(-50%) translateY(0) scale(0); opacity: 0; }
+            100% { transform: translateX(-50%) translateY(-100px) scale(1.5); opacity: 1; }
+        }
+
+        .floating-roses {
+            position: absolute;
+            font-size: 24px;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="landing-page" class="container">
+        <h1>Do you know what day it is today?</h1>
+        <button onclick="revealSurprise()">Tell me</button>
+    </div>
+
+    <div id="surprise-page" class="container">
+        <div class="box-container" id="box">
+            🎁
+            <div id="rose-pop" class="roses">🌹🌹🌹</div>
+        </div>
+        <h1 style="margin-top: 120px;">Happy Rose Day!</h1>
+        <p style="color: #c9184a;">You make my life bloom every single day.</p>
+    </div>
+
+    <script>
+        function revealSurprise() {
+            const landing = document.getElementById('landing-page');
+            const surprise = document.getElementById('surprise-page');
+            const rosePop = document.getElementById('rose-pop');
+
+            landing.style.opacity = '0';
+            
+            setTimeout(() => {
+                landing.style.display = 'none';
+                surprise.style.display = 'flex';
+                setTimeout(() => {
+                    surprise.style.opacity = '1';
+                    rosePop.style.display = 'block';
+                    createFloatingRoses();
+                }, 100);
+            }, 800);
+        }
+
+        function createFloatingRoses() {
+            for (let i = 0; i < 15; i++) {
+                let rose = document.createElement('div');
+                rose.innerHTML = '🌹';
+                rose.className = 'floating-roses';
+                rose.style.left = Math.random() * 100 + 'vw';
+                rose.style.top = Math.random() * 100 + 'vh';
+                rose.style.animationDelay = Math.random() * 2 + 's';
+                document.getElementById('surprise-page').appendChild(rose);
+            }
+        }
+    </script>
+</body>
+</html>
